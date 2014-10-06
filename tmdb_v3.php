@@ -162,10 +162,17 @@ class TMDBv3{
 	* @param array  titles
 	*/
 		public function movieTitles($idMovie) {
+		    $title = array();
 			$titleTmp = $this->movieInfo($idMovie,"alternative_titles",false);
-			foreach ($titleTmp['titles'] as $titleArr){
-				$title[]=$titleArr['title']." - ".$titleArr['iso_3166_1'];
+			
+			if(isset($titleTmp['titles'])) {
+				foreach ($titleTmp['titles'] as $titleArr){
+					$title[]=$titleArr['title']." - ".$titleArr['iso_3166_1'];
+				}
 			}
+			
+			if(!isset($title[0]))
+				$title = array(0 => 'Not found');
 			return $title;
 		}//end of movieTitles
 
